@@ -80,7 +80,6 @@ function animate(){
     for (var i = 0; i < 5; i++){
         dotArray.push(new Dot(x, y));
         dotArray.shift();
-        console.log(dotArray.length);
     }
 }
 
