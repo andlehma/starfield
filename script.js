@@ -3,16 +3,16 @@ var ctx = canvas.getContext('2d');
 var iW = window.innerWidth;
 var iH = window.innerHeight;
 
-var mouse = {
-    x: 0,
-    y: 0,
-}
-
-window.addEventListener('mousemove',
+document.addEventListener('mousemove',
         function(event) {
             mouse.x = event.x;
             mouse.y = event.y;
-        });
+        },false);
+
+var mouse = {
+    x: iW / 2,
+    y: iH / 2,
+};
 
 function randomIntFromInterval(min,max){
     return Math.floor(Math.random()*(max-min+1)+min);
@@ -24,7 +24,7 @@ function Dot(x, y){
 
     this.draw = function(){
         ctx.fillRect(this.x, this.y, 3, 3);
-    }
+    };
 
     this.update = function(){
 
@@ -54,13 +54,13 @@ function Dot(x, y){
         this.x += dx;
         this.y += dy;
         this.draw();
-    }
+    };
 }
 
-var dotArray = []
-for (var i = 0; i < 1000; i++){
-    x = randomIntFromInterval(0, iW);
-    y = randomIntFromInterval(0, iH);
+var dotArray = [];
+for (var i = 0; i < 750; i++){
+    var x = randomIntFromInterval(0, iW);
+    var y = randomIntFromInterval(0, iH);
     dotArray.push(new Dot(x, y));
 }
 
@@ -68,12 +68,9 @@ function animate(){
     requestAnimationFrame(animate);
     ctx.clearRect(0, 0, iW, iH);
 
-    for (i in dotArray){
-        dotArray[i].update();
-        if (dotArray[i].update.c < 100){
-            delete dotArray[i];
-        }
-    }
+    dotArray.forEach(function(i){
+        i.update();
+    });
 
     x = randomIntFromInterval(0, iW);
     y = randomIntFromInterval(0, iH);
